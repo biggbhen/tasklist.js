@@ -28,7 +28,6 @@ function addTask(e) {
   
   addTaskToLocalStorage(taskInput.value)
   taskInput.value = '';
-  // console.log(li);
   e.preventDefault();
 }
 
@@ -41,8 +40,6 @@ function getTasks(task) {
    }else{
     tasks = JSON.parse(localStorage.getItem('tasks'))
   }
-  tasks.push(task)
-  localStorage.setItem('tasks', JSON.stringify(tasks))
 
   tasks.forEach(function(task){
     const li = document.createElement('li');
@@ -80,7 +77,6 @@ function removeTask(e) {
 
     removeTaskFromLocalStorage(e.target.parentElement.parentElement)
   }
-  //  console.log(e.target);
 }
 function removeTaskFromLocalStorage (taskItem) {
   let tasks;
@@ -90,6 +86,7 @@ function removeTaskFromLocalStorage (taskItem) {
     tasks = JSON.parse(localStorage.getItem('tasks'))
   }
   tasks.forEach(function(task, index) {
+    console.log(task, taskItem.textContent);
     if(taskItem.textContent === task){
     tasks.splice(index, 1)
     }
@@ -102,7 +99,12 @@ function clearTask(e) {
   while (taskList.firstChild) {
     taskList.removeChild(taskList.firstChild);
   }
-  e.preventDefault();
+  clearTaskFromLocalStorage()
+}
+
+// clearTask from localStorage
+function clearTaskFromLocalStorage(){
+  localStorage.clear()
 }
 
 function filterTask(e) {
